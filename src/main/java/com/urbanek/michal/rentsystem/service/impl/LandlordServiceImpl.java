@@ -32,6 +32,7 @@ public class LandlordServiceImpl implements LandlordService {
 
         Landlord landLord = new Landlord();
         landLord.setName(landlordRequest.getName());
+
         landLordRepository.save(landLord);
 
         return landlordMapper.LandlordToLandlordResponse(landLord);

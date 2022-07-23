@@ -4,6 +4,7 @@ import com.urbanek.michal.rentsystem.exception.landlord.LandlordExistException;
 import com.urbanek.michal.rentsystem.exception.landlord.LandlordNotFoundException;
 import com.urbanek.michal.rentsystem.exception.rentobject.RentObjectExistException;
 import com.urbanek.michal.rentsystem.exception.rentobject.RentObjectNotFoundException;
+import com.urbanek.michal.rentsystem.exception.reservation.ReservationExistException;
 import com.urbanek.michal.rentsystem.exception.tenant.TenantExistException;
 import com.urbanek.michal.rentsystem.exception.tenant.TenantNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -43,6 +44,11 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
     @ExceptionHandler({TenantExistException.class})
     public ResponseEntity<Object> handleTenantExistException(Exception ex, WebRequest webRequest){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler({ReservationExistException.class})
+    public ResponseEntity<Object> handleReservationExistException(Exception ex, WebRequest webRequest){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.CONFLICT);
     }
 
