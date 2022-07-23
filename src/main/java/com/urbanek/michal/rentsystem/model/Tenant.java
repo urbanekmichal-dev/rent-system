@@ -3,6 +3,7 @@ package com.urbanek.michal.rentsystem.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,5 +16,5 @@ public class Tenant {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "tenant")
-    private List<Reservation> reservation;
+    private List<Reservation> reservation = new ArrayList<>();
 }

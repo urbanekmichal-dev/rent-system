@@ -1,7 +1,7 @@
 package com.urbanek.michal.rentsystem.controller;
 
-import com.urbanek.michal.rentsystem.dto.ReservationRequest;
-import com.urbanek.michal.rentsystem.dto.ReservationResponse;
+import com.urbanek.michal.rentsystem.dto.reservation.ReservationRequest;
+import com.urbanek.michal.rentsystem.dto.reservation.ReservationResponse;
 import com.urbanek.michal.rentsystem.service.ReservationService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

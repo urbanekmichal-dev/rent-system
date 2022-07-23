@@ -1,15 +1,14 @@
-package com.urbanek.michal.rentsystem.dto;
+package com.urbanek.michal.rentsystem.dto.reservation;
 
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
 @Data
-public class ReservationResponse {
+public class ReservationRequest {
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private String rentObjectName;
-    private String landLordName;
+    private String landlordName;
     private String tenantName;
-    private Double finalPrice;
 }

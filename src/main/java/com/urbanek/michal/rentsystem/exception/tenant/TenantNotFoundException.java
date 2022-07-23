@@ -1,4 +1,4 @@
-package com.urbanek.michal.rentsystem.exceptions;
+package com.urbanek.michal.rentsystem.exception.tenant;
 
 public class TenantNotFoundException extends RuntimeException {
 

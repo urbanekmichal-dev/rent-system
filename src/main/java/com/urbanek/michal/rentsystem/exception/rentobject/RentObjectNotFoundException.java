@@ -1,6 +1,4 @@
-package com.urbanek.michal.rentsystem.exceptions;
-
-import net.bytebuddy.implementation.bytecode.Throw;
+package com.urbanek.michal.rentsystem.exception.rentobject;
 
 public class RentObjectNotFoundException extends RuntimeException {
 

@@ -22,7 +22,7 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name="land_lord_id")
-    private LandLord landLord;
+    private Landlord landLord;
 
     @ManyToOne
     @JoinColumn(name="tenant_id")
