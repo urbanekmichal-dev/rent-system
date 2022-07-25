@@ -3,8 +3,8 @@
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
-* [Example cURLs](#example cURLs)
-* [Example SQL scripts](#example SQL scripts)
+* [Example cURLs](#example-cURLs)
+* [Example SQL scripts](#example-SQL-scripts)
 ## General info
 ## Technologies
 * Java 8 
