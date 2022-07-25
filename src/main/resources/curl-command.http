@@ -1,0 +1,84 @@
+###
+# curl --location --request POST 'http://localhost:8082/tenants/'
+#--header 'Content-Type: application/json'
+#--data-raw '{
+#    "name":"Michal"
+#}'
+POST http://localhost:8082/tenants/
+Content-Type: application/json
+
+{
+  "name": "Michal"
+}
+
+###
+# curl --location --request POST 'http://localhost:8082/landlords/'
+#--header 'Content-Type: application/json'
+#--data-raw '{
+#    "name":"Michal"
+#}'
+POST http://localhost:8082/landlords/
+Content-Type: application/json
+
+{
+  "name": "Michal"
+}
+
+###
+
+# curl --location --request POST 'http://localhost:8082/rentobjects/'
+#--header 'Content-Type: application/json'
+#--data-raw '{
+#    "name":"House",
+#    "price": 120,
+#    "area": 100,
+#    "description": "Small house in city center"
+#}'
+POST http://localhost:8082/rentobjects/
+Content-Type: application/json
+
+{
+  "name": "House",
+  "price": 120,
+  "area": 100,
+  "description": "Small house in city center"
+}
+
+###
+
+# curl --location --request POST 'http://localhost:8082/reservations/'
+#--header 'Content-Type: application/json'
+#--data-raw '{
+#    "startDate": "2016-03-25",
+#    "endDate": "2016-03-29",
+#    "rentObjectName": "House",
+#    "landlordName": "Michal",
+#    "tenantName": "Piotr"
+#}'
+POST http://localhost:8082/reservations/
+Content-Type: application/json
+
+{
+  "startDate": "2016-03-25",
+  "endDate": "2016-03-29",
+  "rentObjectName": "House",
+  "landlordName": "Michal",
+  "tenantName": "Piotr"
+}
+
+###
+
+# curl --location --request GET 'http://localhost:8082/reservations/tenant?name=Piotr'
+GET http://localhost:8082/reservations/tenant?name=Piotr
+
+
+###
+
+# curl --location --request GET 'http://localhost:8082/reservations/rentobject?name=House'
+GET http://localhost:8082/reservations/rentobject?name=House
+
+
+
+
+
+

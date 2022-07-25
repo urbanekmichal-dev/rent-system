@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class RentObjectResponse {
+    private Long id;
     private String name;
     private Double price;
     private Double area;

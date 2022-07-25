@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
     List<Reservation> findAllByRentObjectName(String rentObjectName);
-    List<Reservation> findAllByLandLordName(String landlordName);
+    List<Reservation> findAllByTenantName(String landlordName);
 }
