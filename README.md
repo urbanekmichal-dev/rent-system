@@ -1,10 +1,10 @@
-# Rent - system
+# Rent - system application
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
 * [Setup](#setup)
-* [Example cURLs](#Example cURLs)
-* [Example SQL scripts](#Example SQL script)
+* [Example cURLs](#example cURLs)
+* [Example SQL scripts](#example SQL scripts)
 ## General info
 ## Technologies
 * Java 8 
@@ -21,8 +21,8 @@ Rent - system is a Spring Boot application built using Maven. You can build a ja
 ~~~
 git clone https://github.com/urbanekmichal-dev/rent-system.git
 cd rent-system
-./mvnw package
-java -jar target/*.jar
+mvnw package
+java -jar target/rentsystem-v.0.1.jar.jar
 ~~~
 You can then access rent-system here: http://localhost:8082/
 ## Example cURLs 
