@@ -1,13 +1,13 @@
-INSERT INTO land_lords (name) values ('Michal');
-INSERT INTO land_lords (name) values ('Marcin');
-INSERT INTO land_lords (name) values ('Jakub');
-INSERT INTO land_lords (name) values ('Krzysztof');
+INSERT INTO land_lords (name) values ('Julia');
+INSERT INTO land_lords (name) values ('Martin');
+INSERT INTO land_lords (name) values ('Jacob');
+INSERT INTO land_lords (name) values ('Chris');
 
-INSERT INTO tenant (name) values ('Piotr');
-INSERT INTO tenant (name) values ('Krystian');
-INSERT INTO tenant (name) values ('Marian');
-INSERT INTO tenant (name) values ('Sebastian');
-INSERT INTO tenant (name) values ('Lukasz');
+INSERT INTO tenant (name) values ('Piter');
+INSERT INTO tenant (name) values ('Christian');
+INSERT INTO tenant (name) values ('Marry');
+INSERT INTO tenant (name) values ('Lukas');
+INSERT INTO tenant (name) values ('Michael');
 
 INSERT INTO rent_object (area,description,name,price) values (150,'Little house in the city center','House',120);
 INSERT INTO rent_object (area,description,name,price) values (10,'Small studio below the stairs','Room',50);
