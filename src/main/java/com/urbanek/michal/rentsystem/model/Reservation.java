@@ -3,21 +3,21 @@ package com.urbanek.michal.rentsystem.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Data
 @Table(name = "reservations")
 public class Reservation {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Double finalPrice;
 
     @ManyToOne
-    @JoinColumn(name="reservation_id")
+    @JoinColumn(name="rent_object_id")
     private RentObject rentObject;
 
     @ManyToOne

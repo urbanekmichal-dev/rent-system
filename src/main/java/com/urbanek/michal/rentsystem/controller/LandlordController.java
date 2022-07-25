@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(path = "/landlords")
 @AllArgsConstructor
@@ -18,7 +20,7 @@ public class LandlordController {
     private final LandlordService landLordService;
 
     @PostMapping(path = "/")
-    ResponseEntity<LandlordResponse> addLandlord(@RequestBody LandlordRequest landlordRequest){
+    ResponseEntity<LandlordResponse> addLandlord(@Valid @RequestBody LandlordRequest landlordRequest){
         LandlordResponse landlordResponse = landLordService.addLandlord(landlordRequest);
         return new ResponseEntity<>(landlordResponse, HttpStatus.ACCEPTED);
     }

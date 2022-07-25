@@ -2,7 +2,10 @@ package com.urbanek.michal.rentsystem.service.impl;
 
 import com.urbanek.michal.rentsystem.dto.reservation.ReservationRequest;
 import com.urbanek.michal.rentsystem.dto.reservation.ReservationResponse;
+import com.urbanek.michal.rentsystem.dto.reservation.ReservationResponseForRentObject;
+import com.urbanek.michal.rentsystem.dto.reservation.ReservationResponseForTenant;
 import com.urbanek.michal.rentsystem.exception.reservation.ReservationExistException;
+import com.urbanek.michal.rentsystem.exception.reservation.ReservationNotFoundException;
 import com.urbanek.michal.rentsystem.mapper.ReservationMapper;
 import com.urbanek.michal.rentsystem.model.Landlord;
 import com.urbanek.michal.rentsystem.model.RentObject;
@@ -16,6 +19,7 @@ import com.urbanek.michal.rentsystem.service.TenantService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -34,7 +38,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     public ReservationResponse addNewReservation(ReservationRequest reservationRequest) {
         if(!checkIfAvailable(reservationRequest.getRentObjectName(),reservationRequest.getStartDate(),reservationRequest.getEndDate()))
-            throw new ReservationExistException("Rent object with the name: "+reservationRequest.getRentObjectName() +" between "+reservationRequest.getStartDate().toLocalDate()+" and "+reservationRequest.getEndDate().toLocalDate() +" is not available");
+            throw new ReservationExistException("Rent object with the name: "+reservationRequest.getRentObjectName() +" between "+reservationRequest.getStartDate()+" and "+reservationRequest.getEndDate() +" is not available");
 
         RentObject rentObject = rentObjectService.findByName(reservationRequest.getRentObjectName());
         Tenant tenant = tenantService.findByName(reservationRequest.getTenantName());
@@ -56,23 +60,49 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public List<ReservationResponse> getReservationsByLandlord(String name) {
-        List <Reservation> reservationList = reservationRepository.findAllByLandLordName(name);
-        return reservationMapper.reservationListReservationResponseList(reservationList);
+    public List<ReservationResponseForTenant> getReservationsByTenant(String name) {
+        List <Reservation> reservationList = reservationRepository.findAllByTenantName(name);
+        return reservationMapper.reservationListToReservationResponseForTenantList(reservationList);
     }
 
     @Override
-    public List<ReservationResponse> getReservationsByRentObject(String name) {
+    public List<ReservationResponseForRentObject> getReservationsByRentObject(String name) {
         List <Reservation> reservationList = reservationRepository.findAllByRentObjectName(name);
-        return reservationMapper.reservationListReservationResponseList(reservationList);
+        return reservationMapper.reservationListToReservationResponseForRentObjectList(reservationList);
     }
 
-    private double calculateFinalPrice(Double price,LocalDateTime startDate, LocalDateTime endDate){
+    @Override
+    public ReservationResponse updateReservation(Long id, ReservationRequest reservationRequest) {
+        Reservation reservation = findById(id);
+
+        RentObject rentObject = rentObjectService.findByName(reservationRequest.getRentObjectName());
+
+        if (checkIfAvailable(reservationRequest.getRentObjectName(), reservationRequest.getStartDate(), reservationRequest.getEndDate())) {
+            reservation.setStartDate(reservationRequest.getStartDate());
+            reservation.setEndDate(reservationRequest.getEndDate());
+            reservation.setFinalPrice(calculateFinalPrice(rentObject.getPrice(),reservationRequest.getStartDate(),reservationRequest.getStartDate()));
+            reservation.setRentObject(rentObject);
+
+            Landlord landLord = landLordService.findByName(reservationRequest.getLandlordName());
+            reservation.setLandLord(landLord);
+
+            Tenant tenant = tenantService.findByName(reservationRequest.getTenantName());
+            reservation.setTenant(tenant);
+        }
+        else {
+            throw new ReservationExistException("Rent object with the name: "+reservationRequest.getRentObjectName() +" between "+reservationRequest.getStartDate()+" and "+reservationRequest.getEndDate() +" is not available");
+        }
+
+        reservationRepository.save(reservation);
+        return reservationMapper.reservationToReservationResponse(reservation);
+    }
+
+    private double calculateFinalPrice(Double price,LocalDate startDate, LocalDate endDate){
        double days = ChronoUnit.DAYS.between(startDate,endDate);
        return days * price;
     }
 
-    private boolean checkIfAvailable(String rentObjectName, LocalDateTime startDate, LocalDateTime endDate){
+    private boolean checkIfAvailable(String rentObjectName, LocalDate startDate, LocalDate endDate){
         if(startDate.isAfter(endDate)) return false;
 
         List<Reservation> reservations = reservationRepository.findAllByRentObjectName(rentObjectName);
@@ -86,5 +116,8 @@ public class ReservationServiceImpl implements ReservationService {
         return collisionReservation.isEmpty();
     }
 
-
+    public Reservation findById(Long id){
+        return reservationRepository.findById(id).orElseThrow(
+                ()->new ReservationNotFoundException("Reservation with id: "+id+" was not found!"));
+    }
 }
