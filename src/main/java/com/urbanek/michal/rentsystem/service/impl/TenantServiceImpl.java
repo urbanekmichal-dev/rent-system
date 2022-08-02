@@ -11,6 +11,8 @@ import com.urbanek.michal.rentsystem.service.TenantService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class TenantServiceImpl implements TenantService {
@@ -34,5 +36,11 @@ public class TenantServiceImpl implements TenantService {
         tenantRepository.save(tenant);
 
         return tenantMapper.tenantToTenantResponse(tenant);
+    }
+
+    @Override
+    public List<TenantResponse> getTenants() {
+        List<Tenant> tenantList = tenantRepository.findAll();
+        return tenantMapper.tenantListToTenantListResponse(tenantList);
     }
 }

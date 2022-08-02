@@ -6,12 +6,10 @@ import com.urbanek.michal.rentsystem.service.TenantService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/tenants")
@@ -23,5 +21,11 @@ public class TenantController {
     ResponseEntity<TenantResponse> addTenant(@Valid @RequestBody TenantRequest tenantRequest){
         TenantResponse tenantResponse = tenantService.addTenant(tenantRequest);
         return new ResponseEntity<>(tenantResponse, HttpStatus.ACCEPTED);
+    }
+
+    @GetMapping(path = "/")
+    ResponseEntity<List<TenantResponse>> getTenants(){
+        List<TenantResponse> tenantResponseList = tenantService.getTenants();
+        return new ResponseEntity<>(tenantResponseList,HttpStatus.ACCEPTED);
     }
 }
