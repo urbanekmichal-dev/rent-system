@@ -2,10 +2,8 @@ package com.urbanek.michal.rentsystem.controller;
 
 import com.urbanek.michal.rentsystem.dto.rentobject.RentObjectRequest;
 import com.urbanek.michal.rentsystem.dto.rentobject.RentObjectResponse;
-import com.urbanek.michal.rentsystem.model.RentObject;
 import com.urbanek.michal.rentsystem.service.RentObjectService;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
